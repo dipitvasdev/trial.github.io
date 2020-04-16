@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Hello Again</title>
+        <link rel = "stylesheet" href= "css/index.css">
+        <link rel = "stylesheet" href= "css/card.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="css/todolist.css" rel="stylesheet"> 
+	<script src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/a909b6ae01.js" crossorigin="anonymous"></script>
+</head>
+    </head>
+    <body>
+                <section id="item">
+                        <div class = "clock">
+                                <div class = "hour">
+                                    <div class = "hr" id = "hr"></div>
+                                </div>
+                                <div class = "min">
+                                    <div class = "mn" id = "mn"></div>
+                                </div>
+                                <div class = "sec">
+                                    <div class = "sc" id = "sc"></div>
+                                </div>
+                        </div>
+                
+                    <div id="container">
+                        <h1>To-Do List <i class="fas fa-pencil-alt"></i></h1>
+                        <input type="text" placeholder="Add New Todo">
+                        <ul>
+                            <li><span><i class="fas fa-trash-alt"></i></span> Get Ready for College</li>
+                            <li><span><i class="fas fa-trash-alt"></i></span> Bunk Classes</li>
+                            <li><span><i class="fas fa-trash-alt"></i></span> Attend Lab</li>
+                            <li class = "lst"><span><i class="fas fa-trash-alt"></i></span> Say Goodbye ;(</li>
+                        </ul>
+                    </div>
+                </section>
+                <section class = "info"><div class = "container">
+                        <div class = "card">
+                            <div class = "face face1">
+                                <div class = "content">
+                                    <img src = "img/test.png">
+                                    <h3>Test Records</h3>
+                                </div>
+                            </div>
+                            <div class = "face face2">
+                                    <div class = "content">
+                                        <p>Check the test results of ur student.</p>
+                                        <a href="test.html">Read More</a>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class = "card">
+                                <div class = "face face1">
+                                    <div class = "content">
+                                        <img src = "img/assignment.png">
+                                        <h3>Assignment</h3>
+                                    </div>
+                                </div>
+                                <div class = "face face2">
+                                        <div class = "content">
+                                            <p>Check the assignments of ur student.</p>
+                                            <a href="assignment.html">Read More</a>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class = "card">
+                                    <div class = "face face1">
+                                        <div class = "content">
+                                            <img src = "img/calendar.png">
+                                            <h3>Schedule</h3>
+                                        </div>
+                                    </div>
+                                    <div class = "face face2">
+                                            <div class = "content">
+                                                <p>Schedule the tests of ur student.</p>
+                                                <a href="schedule.html">Read More</a>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class = "card">
+                                    <div class = "face face1">
+                                        <div class = "content">
+                                            <img src = "img/question.png">
+                                            <h3>Student Query</h3>
+                                        </div>
+                                    </div>
+                                    <div class = "face face2">
+                                            <div class = "content">
+                                                <p>See the student doubt</p>
+                                                <a href="#">Read More</a>
+                                            </div>
+                                    </div>
+                                </div>
+                    </div></section>
+                   
+                        <script type="text/javascript" src="index.js"></script>
+                    
+        <script>
+            const deg = 6;
+            const hr = document.querySelector('#hr');
+            const mn = document.querySelector('#mn');
+            const sc = document.querySelector('#sc');
+            setInterval(() => {
+                let day = new Date();
+            let hh = day.getHours() * 30;
+            let mm = day.getMinutes() * deg;
+            let ss = day.getSeconds() * deg;
+            hr.style.transform = `rotateZ(${(hh)+(mm/12)}deg)` ;
+            mn.style.transform = `rotateZ(${mm}deg)`;
+            sc.style.transform = `rotateZ(${ss}deg)`;
+            })
+        </script>
+    </body>
+</html>
