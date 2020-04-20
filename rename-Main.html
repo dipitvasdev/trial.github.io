@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Hello Again</title>
+        <link rel = "stylesheet" href= "css/index.css">
+        <link rel = "stylesheet" href= "css/card.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="css/todolist.css" rel="stylesheet"> 
+	<script src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/a909b6ae01.js" crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-storage.js"></script>
+</head>
+    </head>
+    <body>
+                <section id="item">
+                        <div class = "clock">
+                                <div class = "hour">
+                                    <div class = "hr" id = "hr"></div>
+                                </div>
+                                <div class = "min">
+                                    <div class = "mn" id = "mn"></div>
+                                </div>
+                                <div class = "sec">
+                                    <div class = "sc" id = "sc"></div>
+                                </div>
+                        </div>
+                
+                    <div id="container">
+                        <button onclick= "updateData()">Save</button>
+                        <h1>To-Do List <i class="fas fa-pencil-alt"></i></h1>
+                        <input type="text" id= "chep" placeholder="Add New Todo">
+                        <ul></ul>
+                        </ul>
+                    </div>
+                </section>
+                <section class = "info"><div class = "container">
+                        <div class = "card">
+                            <div class = "face face1">
+                                <div class = "content">
+                                    <img src = "img/test.png">
+                                    <h3>Test Records</h3>
+                                </div>
+                            </div>
+                            <div class = "face face2">
+                                    <div class = "content">
+                                        <p>Check the test results of ur student.</p>
+                                        <a href="test.html" id = "t">Read More</a>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class = "card">
+                                <div class = "face face1">
+                                    <div class = "content">
+                                        <img src = "img/assignment.png">
+                                        <h3>Assignment</h3>
+                                    </div>
+                                </div>
+                                <div class = "face face2">
+                                        <div class = "content">
+                                            <p>Check the assignments of ur student.</p>
+                                            <a href="assignment.html" id = "ass">Read More</a>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class = "card">
+                                    <div class = "face face1">
+                                        <div class = "content">
+                                            <img src = "img/calendar.png">
+                                            <h3>Schedule</h3>
+                                        </div>
+                                    </div>
+                                    <div class = "face face2">
+                                            <div class = "content">
+                                                <p>Schedule the tests of ur student.</p>
+                                                <a href="schedule.html" id = "sch">Read More</a>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class = "card">
+                                    <div class = "face face1">
+                                        <div class = "content">
+                                            <img src = "img/question.png">
+                                            <h3>Student Query</h3>
+                                        </div>
+                                    </div>
+                                    <div class = "face face2">
+                                            <div class = "content">
+                                                <p>See the student doubt</p>
+                                                <a href="stuquery.html" id = "sq">Read More</a>
+                                            </div>
+                                    </div>
+                                </div>
+                    </div></section>
+
+                        <script type="text/javascript" src="index.js"></script>
+                        <script type="text/javascript" >
+                            var helo = sessionStorage.getItem("uid");
+                            $("ul").on("click", "li", function () {
+                                // body...
+                                 $(this).toggleClass("completed");
+                             });
+                            
+                            //delete button
+                            
+                            $("input[type = 'text']").keypress(function(k){
+                                if(k.which === 13){
+                                    var todoText = $(this).val();
+                                    $(this).val("");
+                                    $("ul").append("<li><span><i class='fas fa-trash-alt'></i></span>" + todoText + "</li>");
+                                }
+                            
+                            });
+                            
+                            $(".fa-pencil-alt").click(function(){
+                             $("input[type='text']").fadeToggle()
+                            });
+                            var fb_db = firebase.database().ref("users/" + helo + "/todo/" );
+                              function updateData(){ 
+                                console.log("called");
+                                data = document.getElementById('chep').value;
+                                fb_db.child('chep/').push({
+                                    user_name : data }); 
+                                    document.location.reload();
+                            }
+                            var i = 0;
+                            var add ={};
+                            fb_db.child('chep/').once('value', function(snapshot) {
+                              snapshot.forEach(function(childSnapshot) {
+                                var childKey = childSnapshot.key;
+                                var childData = childSnapshot.val();
+                                console.log(childData.user_name);
+                                $("ul").append("<li><span><i class='fas fa-trash-alt'></i></span>" + childData.user_name + "</li>");
+                              }); 
+                              $("ul").on("click","span",function(){
+                                $(this).parent().fadeOut(500,function(){
+                                  var keyy = $(this).text();
+                                  fb_db.child('chep/').once('value', function(snapshot) {
+                                  snapshot.forEach(function(childSnapshot) {
+                                    var childKey1 = childSnapshot.key;
+                                    var childData1 = childSnapshot.val();
+                                    if(childData1.user_name === keyy) {
+                                      fb_db.child('chep/' + childKey1 + "/").remove(); 
+                                    }
+                                });
+                              $(this).remove();
+                            });   
+                            });
+                            });
+                            });
+                            sessionStorage.setItem("uid",helo);
+                        </script>
+                    
+        <script>
+            const deg = 6;
+            const hr = document.querySelector('#hr');
+            const mn = document.querySelector('#mn');
+            const sc = document.querySelector('#sc');
+            setInterval(() => {
+                let day = new Date();
+            let hh = day.getHours() * 30;
+            let mm = day.getMinutes() * deg;
+            let ss = day.getSeconds() * deg;
+            hr.style.transform = `rotateZ(${(hh)+(mm/12)}deg)` ;
+            mn.style.transform = `rotateZ(${mm}deg)`;
+            sc.style.transform = `rotateZ(${ss}deg)`;
+            })
+        </script>
+    </body>
+</html>

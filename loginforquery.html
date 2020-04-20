@@ -18,21 +18,43 @@
             <div class = "input">
                 <div class= "inputBox">
                     <label>Username</label>
-                    <input id = "email" type="text" name="" placeholder="San Dio">
+                    <input type="text" name="" placeholder="San Dio">
+                </div>
+                <div class= "inputBox">
+                    <label>Access Code</label>
+                    <input id = "email" type="text" name="" placeholder="suefhsefh">
                 </div>
                 <div class= "inputBox">
                     <label>Password</label>
                     <input id = "password" type="password">
                 </div>
                 <div class= "inputBox">
-                    <input id = "signin" type="submit" name="" value="Sign In">
+                    <input onclick="checking()" type="submit" name="" value="Sign In">
                 </div>
             </div>
         </div>
         <!-- The core Firebase JS SDK is always required and must be listed first -->
-        
-
-<script src = "index.js">
-</script>
+        <script>
+            var firebaseConfig = {
+    apiKey: "AIzaSyB-W2AktdEtM7z_KHSWXXT_3PoBoWFdubM",
+    authDomain: "dredu-71835.firebaseapp.com",
+    databaseURL: "https://dredu-71835.firebaseio.com",
+    projectId: "dredu-71835",
+    storageBucket: "dredu-71835.appspot.com",
+    messagingSenderId: "1010179971420",
+    appId: "1:1010179971420:web:d2fc28ac5634b8ee8a0999",
+    measurementId: "G-19Z5Q66FHX"
+  };  
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+            var database = firebase.database();
+            function checking(){
+                emailAddress = document.querySelector('#email').value;
+                sessionStorage.setItem("uid", emailAddress);
+                console.log (emailAddress);
+                window.location = 'main.html';
+            }
+        </script>
 </body>
 </html>
