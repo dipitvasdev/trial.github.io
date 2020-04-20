@@ -43,7 +43,7 @@ var firebaseConfig = {
             if (user) {
                 // User is signed in.
                 
-                window.location.href="/index.html";
+                window.location.href="/rename-Main.html";
               } else {
                 // No user is signed in.
               }
